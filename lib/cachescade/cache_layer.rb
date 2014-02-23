@@ -1,32 +1,35 @@
 module Cachescade
   class CacheLayer
-    attr_reader :cache_engine
+    attr_reader :cache
     attr_accessor :next_layer
 
-    def initialize(cache_engine)
-      @cache_engine = cache_engine
+    def initialize(cache)
+      @cache = cache
       @next_layer = terminus
     end
 
     def fetch(id)
-      @cache_engine.get(id) || fetch_through(id)
+      @cache.get(id) || fetch_through(id)
     end
 
-    def write(id)
-      @cache_engine.put(id) && @next_layer.write(id)
+    def write(id, data)
+      Thread.new {
+        @cache.put(id, data)
+        @next_layer.write(id, data)
+      }
     end
 
     private
 
     def fetch_through(id)
       @next_layer.fetch(id).tap do |result|
-        @cache_engine.put(result) unless result.nil?
+        @cache.put(result) unless result.nil?
       end
     end
 
     def terminus
       Struct.new :layer do
-        def write(id); nil; end
+        def write(id, data); nil; end
         def fetch(id); nil; end
       end.new
     end

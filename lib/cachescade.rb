@@ -24,8 +24,8 @@ module Cachescade
       last_layer { |layer| layer.fetch(id) }
     end
 
-    def write(id)
-      last_layer { |layer| layer.write(id) }
+    def write(id, data)
+      last_layer { |layer| layer.write(id, data) }
     end
 
     private
