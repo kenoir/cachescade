@@ -1,6 +1,8 @@
 cachescade
 ==========
 
+**work in progress**
+
 JRuby Multi-Layer Cache Gem
 
 
