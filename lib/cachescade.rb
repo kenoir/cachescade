@@ -16,7 +16,7 @@ module Cachescade
     end
 
     def <<(cache_layer)
-      cache_layer.next_layer = @layers.last
+      cache_layer.next_layer = @layers.last unless @layers.last.nil?
       @layers << cache_layer
     end
 
