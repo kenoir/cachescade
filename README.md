@@ -11,22 +11,26 @@ Usage:
 ```rb
 cache_engine_stub_miss = Struct.new :engine do
   def get(id)
+    puts "CACHE MISS"
     nil
   end
-  def put(id); nil; end
+  def put(id, data); nil; end
 end.new
 
 cache_engine_stub_hit = Struct.new :engine do
   def get(id)
     1
   end
-  def put(id); nil; end
+  def put(id, data); nil; end
 end.new
 
-l = Cachescade::CacheLayer.new(engine_fast)
+layer_miss = Cachescade::CacheLayer.new(cache_engine_stub_miss)
+layer_hit  = Cachescade::CacheLayer.new(cache_engine_stub_hit)
+
 c = Cachescade.create
-c << cache_engine_stub_miss
-c << cache_engine_stub_hit
+
+c << layer_hit
+c << layer_miss
 
 c.fetch(1)
 ```
