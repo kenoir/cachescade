@@ -1,11 +1,13 @@
 $: << File.dirname(__FILE__)
 
 require "cachescade/version"
-require "cachescade/cache_layer"
+require "cachescade/layer_factory"
 
 module Cachescade
-  def self.create
-    Cachescade.new
+  def self.create(drivers)
+    Cachescade.new.tap do |c|
+      drivers.each { |driver| c << LayerFactory.create(driver) }
+    end
   end
 
   class Cachescade
