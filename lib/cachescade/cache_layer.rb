@@ -23,7 +23,9 @@ module Cachescade
 
     def fetch_through(id)
       @next_layer.fetch(id).tap do |result|
-        @cache.put(result) unless result.nil?
+        Thread.new do
+          @cache.put(id, result) unless result.nil?
+        end
       end
     end
 
