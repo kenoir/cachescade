@@ -33,7 +33,7 @@ module Cachescade
     private
 
     def last_layer(&block)
-      @layers.last.nil? ? nil : block.call(@layers.last)
+      block.call(@layers.last) unless @layers.last.nil?
     end
   end
 end
