@@ -53,5 +53,14 @@ describe Cachescade do
         end
       end
     end
+
+    describe 'write(id, data)' do
+      it 'writes data to all layers' do
+        valid_options.write('foo', foo).join # we use 'join' for purpose of the tests
+
+        expect(valid_options.fetch('foo'))
+          .to eq foo
+      end
+    end
   end
 end
