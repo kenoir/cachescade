@@ -8,6 +8,7 @@ module Cachescade
       end
 
       def get(id)
+        puts "in-memory get #{id} - #{@hash[id]}"
         @hash[id]
       end
 
