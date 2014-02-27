@@ -1,5 +1,6 @@
-require "cachescade/cache_layer"
-require "cachescade/drivers"
+require 'cachescade/cache_layer'
+require 'cachescade/drivers/in_memory'
+require 'cachescade/drivers/slow_poke'
 
 module Cachescade
   class LayerFactory
