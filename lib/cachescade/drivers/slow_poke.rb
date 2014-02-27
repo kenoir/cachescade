@@ -8,7 +8,6 @@ module Cachescade
       end
 
       def get(id)
-        puts "slow_poke get #{id} - #{@hash[id]}"
         doze
         @hash[id]
       end
