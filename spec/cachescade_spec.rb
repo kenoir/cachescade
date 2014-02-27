@@ -27,10 +27,10 @@ describe Cachescade do
   end
 
   describe Cachescade::Cachescade do
-    describe 'fetch(id)' do
-      let(:foo) { 'foo value' }
-      let(:bar) { 'bar value' }
+    let(:foo) { 'foo value' }
+    let(:bar) { 'bar value' }
 
+    describe 'fetch(id)' do
       context 'found in first cache layer' do
         it 'returns correct value' do
           Cachescade::Drivers::InMemory
