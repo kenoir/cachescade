@@ -1,14 +1,19 @@
-require "cachescade/cache_layer"
-require "cachescade/drivers"
+require 'cachescade/cache_layer'
+require 'cachescade/drivers/in_memory'
+require 'cachescade/drivers/slow_poke'
 
 module Cachescade
   class LayerFactory
+    CacheLayer = ::Cachescade::CacheLayer
+    InMemory   = ::Cachescade::Drivers::InMemory
+    SlowPoke   = ::Cachescade::Drivers::SlowPoke
+
     def self.create(driver)
       case driver
       when :in_memory
-        ::Cachescade::CacheLayer.new(InMemory.new)
+        CacheLayer.new(InMemory.new)
       when :slow_poke
-        ::Cachescade::CacheLayer.new(SlowPoke.new)
+        CacheLayer.new(SlowPoke.new)
       else
         nil
       end

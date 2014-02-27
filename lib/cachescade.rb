@@ -4,9 +4,9 @@ require "cachescade/version"
 require "cachescade/layer_factory"
 
 module Cachescade
-  def self.create(drivers)
+  def self.create(drivers = [])
     Cachescade.new.tap do |c|
-      drivers.each { |driver| c << LayerFactory.create(driver) }
+      drivers.each { |driver| c << LayerFactory.create(driver) if not driver.nil? }
     end
   end
 
@@ -31,9 +31,9 @@ module Cachescade
     end
 
     private
+
     def last_layer(&block)
       @layers.last.nil? ? nil : block.call(@layers.last)
     end
-
   end
 end
