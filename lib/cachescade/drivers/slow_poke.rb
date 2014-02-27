@@ -4,7 +4,7 @@ module Cachescade
       attr_accessor :hash
 
       def initialize
-        @hash = { 'foo' => "some fallback foo" }
+        @hash = {}
       end
 
       def get(id)
