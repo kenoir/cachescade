@@ -58,8 +58,9 @@ describe Cachescade do
       it 'writes data to all layers' do
         valid_options.write('foo', foo).join # we use 'join' for purpose of the tests
 
-        expect(valid_options.fetch('foo'))
-          .to eq foo
+        valid_options.layers.each do |cache_layer|
+          cache_layer.cache.hash.should include 'foo'
+        end
       end
     end
   end
